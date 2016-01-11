@@ -1,6 +1,5 @@
 package com.piron1991.prospectors.reference;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 
 
 public class Reference {

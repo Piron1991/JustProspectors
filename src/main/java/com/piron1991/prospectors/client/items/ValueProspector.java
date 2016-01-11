@@ -46,23 +46,23 @@ public class ValueProspector extends ItemBase {
             }
 
             if (val != -1){
-            player.addChatComponentMessage(
-                    new ChatComponentText(
-                    "Best found ore belongs to: "
-                    +getProperLocalization(new ItemStack(temp.get(val)))
-                    )
-            );
+                player.addChatComponentMessage(
+                        new ChatComponentText(
+                                "Best found ore belongs to: "
+                                        +getProperLocalization(new ItemStack(temp.get(val)))
+                        )
+                );
 
-            player.addChatComponentMessage(
-                    new ChatComponentText(
-                    "Around x: "
-                    +(temp_x+rand.nextInt(11)-5)
-                    +" y: "
-                    +(temp_y+rand.nextInt(7)-3)
-                    +" z: "
-                    +(temp_z+rand.nextInt(11)-5)
-                    )
-            );
+                player.addChatComponentMessage(
+                        new ChatComponentText(
+                                "Around x: "
+                                        +(temp_x+rand.nextInt(11)-5)
+                                        +" y: "
+                                        +(temp_y+rand.nextInt(7)-3)
+                                        +" z: "
+                                        +(temp_z+rand.nextInt(11)-5)
+                        )
+                );
             }else{
                 player.addChatComponentMessage(new ChatComponentText("No ores found"));
             }

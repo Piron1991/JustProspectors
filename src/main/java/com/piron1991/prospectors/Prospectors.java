@@ -37,5 +37,5 @@ public class Prospectors {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event){
 
-        }
+    }
 }

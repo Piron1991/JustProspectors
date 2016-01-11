@@ -1,13 +1,13 @@
 package com.piron1991.prospectors.handler;
 
 import com.piron1991.prospectors.client.items.PerfectProspector;
+import com.piron1991.prospectors.utilities.LogHelper;
 import com.piron1991.prospectors.utilities.NBTHelper;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -23,7 +23,7 @@ public class SpecialRecipeHandler implements IRecipe {
     @Override
     public boolean matches(InventoryCrafting invCraft, World world) {
 
-    ItemStack prospector=null;
+        ItemStack prospector=null;
         ItemStack ore = null;
 
         for (int i=0;i<3;i++){
@@ -56,7 +56,7 @@ public class SpecialRecipeHandler implements IRecipe {
                     prospector = itemstack;
                 }if (oredict.contains(Block.getBlockFromItem(itemstack.getItem()))){
                     ore = itemstack;
-                   index= oredict.indexOf(Block.getBlockFromItem(itemstack.getItem()));
+                    index= oredict.indexOf(Block.getBlockFromItem(itemstack.getItem()));
                 }
             }
         }
@@ -64,11 +64,12 @@ public class SpecialRecipeHandler implements IRecipe {
 
 
 
-       ItemStack result = prospector.copy();
-       NBTTagCompound nbttagcompound = new NBTTagCompound();
+            ItemStack result = prospector.copy();
+            NBTTagCompound nbttagcompound = new NBTTagCompound();
             ore.writeToNBT(nbttagcompound);
-            //nbttagcompound.setString("oreDictName", OreDictionary.getOreName(OreDictionary.getOreIDs(ore)[0]));
-            NBTHelper.setTagCompound(result,"stackOreBlock,",nbttagcompound);
+            nbttagcompound.setString("oreDictName", OreDictionary.getOreName(OreDictionary.getOreIDs(ore)[0]));
+            result.setTagCompound(nbttagcompound);
+//            NBTHelper.setTagCompound(result,"stackOreBlock,",nbttagcompound);
             return result;
         }
         return null;

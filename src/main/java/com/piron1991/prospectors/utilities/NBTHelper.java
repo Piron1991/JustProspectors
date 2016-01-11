@@ -181,7 +181,8 @@ public class NBTHelper {
         itemStack.stackTagCompound.setTag(keyName, nbtTagList);
     }
 
-    // tag compound
+   /* TODO: Fix that crap>.>
+   // tag compound
     public static NBTTagCompound getTagCompound(ItemStack itemStack, String keyName) {
         initNBTTagCompound(itemStack);
 
@@ -197,6 +198,6 @@ public class NBTHelper {
 
         itemStack.stackTagCompound.setTag(keyName, nbtTagCompound);
     }
-
+*/
 }
 

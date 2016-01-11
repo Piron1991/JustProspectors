@@ -2,7 +2,6 @@ package com.piron1991.prospectors.creativeTab;
 
 import com.piron1991.prospectors.init.InitItems;
 import com.piron1991.prospectors.reference.Reference;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 

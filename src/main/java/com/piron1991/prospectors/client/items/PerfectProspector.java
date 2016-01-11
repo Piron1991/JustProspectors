@@ -38,11 +38,17 @@ public class PerfectProspector extends ItemBase{
             int temp_x = x;
             int temp_y = y;
             int temp_z = z;
+            LogHelper.info(itemstack.getTagCompound().toString()+"      FIRST");
+          //  LogHelper.info(NBTHelper.getTagCompound(itemstack,"stackOreBlock").toString() + "          SECOND");
+            LogHelper.info(itemstack.getTagCompound().toString() + "        THIRD");
             if (itemstack.hasTagCompound()) {
+                NBTTagCompound tag = itemstack.getTagCompound();
 
-                NBTTagCompound tag = NBTHelper.getTagCompound(itemstack,"stackOreBlock");
+                LogHelper.info(tag.toString() + "        FOURTH");
+                LogHelper.info(tag.getCompoundTag("stackOreBlock") + "       Fifth");
+
+                //TODO: helper gives stackOreBlock:{id:,Count:,Damage:,} and not just {id:,Count:,Damage:,} which is expected by loadItemStackFromNBT()
                 ItemStack _temp = ItemStack.loadItemStackFromNBT(tag);
-                LogHelper.info(tag.toString());
                 Block savedBlock=Block.getBlockFromItem(_temp.getItem());
 
 
@@ -55,10 +61,10 @@ public class PerfectProspector extends ItemBase{
                                 temp_x = i;
                                 temp_y = j;
                                 temp_z = k;
-                                }if (val==1)break;
                             }if (val==1)break;
                         }if (val==1)break;
-                    }
+                    }if (val==1)break;
+                }
                 if (val == 1) {
                     player.addChatComponentMessage(
                             new ChatComponentText(
@@ -88,19 +94,20 @@ public class PerfectProspector extends ItemBase{
                 player.addChatComponentMessage(new ChatComponentText("No block selected,craft with ore."));
             }
 
-               }
+        }
+
         return true;
     }
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b) {
         super.addInformation(stack, player, list, b);
         String oreName = getProperLocalization(stack);
-            list.add("Finds selected ore.");
-            list.add( oreName.equals(stack.getDisplayName())?"No ore selected":oreName);
+        list.add("Finds selected ore.");
+        list.add( oreName.equals(stack.getDisplayName())?"No ore selected":oreName);
 
 
-        }
     }
+}
 
 
 

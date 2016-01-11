@@ -4,7 +4,6 @@ import com.piron1991.prospectors.reference.Reference;
 import com.piron1991.prospectors.utilities.LogHelper;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
@@ -12,9 +11,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ConfigHandler {
 
@@ -55,9 +51,9 @@ public class ConfigHandler {
         for (String ore:oreList) {
             stacks = OreDictionary.getOres(ore);
             for (ItemStack stack :stacks) {
-               Block temp = Block.getBlockFromItem(stack.getItem());
+                Block temp = Block.getBlockFromItem(stack.getItem());
                 if (!blocks.contains(temp) ){
-                blocks.add(temp);
+                    blocks.add(temp);
                 }
             }
         }
