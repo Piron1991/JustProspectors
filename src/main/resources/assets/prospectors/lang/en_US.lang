@@ -1,0 +1,5 @@
+item.prospectors:valueProspector.name=High Value Prospector
+item.prospectors:crapProspector.name=Low Value Prospector
+item.prospectors:perfectProspector.name=Ore Finding Prospector
+
+itemGroup.prospectors=Just Prospectors
