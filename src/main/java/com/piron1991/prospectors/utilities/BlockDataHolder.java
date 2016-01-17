@@ -67,4 +67,15 @@ public class BlockDataHolder {
     public int hashCode() {
         return Objects.hash(getOredict(), getBlock(), getMeta(), getValue(), getStack());
     }
+
+    @Override
+    public String toString() {
+        return "Blocks data saved{" +
+                "oredict='" + oredict + '\'' +
+                ", block=" + block +
+                ", meta=" + meta +
+                ", value=" + value +
+                ", stack=" + stack +
+                '}';
+    }
 }

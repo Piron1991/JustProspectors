@@ -19,13 +19,17 @@ public class ConfigHandler {
 
     public static String[] oreList;
     public static HashSet<BlockDataHolder> oreArray = new HashSet<BlockDataHolder>(30);
+    public static boolean debugMode;
+    public static int xz_size;
+    public static int y_size;
+
 
     public static void preinit(File configFile) {
 
         if (config == null) {
             config = new Configuration(configFile);}
         loadConfig();
-        setScannableOres();
+
 
     }
 
@@ -40,22 +44,27 @@ public class ConfigHandler {
 
     private static void loadConfig() {
         oreList = config.get("oreList","Oredict names for propecting.Put names below from least to most valuable ore",Reference.oreList).getStringList();
+        debugMode = config.get("Debug mode","Debug",false).getBoolean();
+        xz_size=config.get("Tool ranges","XZ_size:",3).getInt();
+        y_size=config.get("Tool ranges","Y_height",5).getInt();
+
         if (config.hasChanged()) {
             config.save();
         }
 
+    }
 
+    public static void postInit(){
+        setScannableOres();
     }
 
     private static void setScannableOres(){
-        //LogHelper.info("Adding blocks: ");
         ArrayList<ItemStack> stacks;
         Integer value = 1;
 
         for (String ore:oreList) {
 
             stacks = OreDictionary.getOres(ore);
-            LogHelper.info(stacks);
 
             for (ItemStack stack :stacks) {
 

@@ -4,6 +4,8 @@ import com.piron1991.prospectors.handler.ConfigHandler;
 import com.piron1991.prospectors.init.InitItems;
 import com.piron1991.prospectors.init.InitRecipe;
 import com.piron1991.prospectors.reference.Reference;
+import com.piron1991.prospectors.utilities.BlockDataHolder;
+import com.piron1991.prospectors.utilities.LogHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -36,6 +38,12 @@ public class Prospectors {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event){
-
+        ConfigHandler.postInit();
+    if (ConfigHandler.debugMode){
+        for(BlockDataHolder ore:ConfigHandler.oreArray){
+            LogHelper.info(ore.toString());
+        }
     }
+    }
+
 }

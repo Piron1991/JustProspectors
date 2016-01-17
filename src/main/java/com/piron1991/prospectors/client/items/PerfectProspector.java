@@ -54,18 +54,21 @@ public class PerfectProspector extends ItemBase{
                     }
                 }
                 if (data != null) {
-                    for (int k = z - 3; k <= z + 3; k++) {
-                        for (int i = x - 3; i <= x + 3; i++) {
-                            for (int j = y; j <= y + 5; j++) {
+                    for (int k = z - ConfigHandler.xz_size; k <= z + ConfigHandler.xz_size; k++) {
+                        for (int i = x - ConfigHandler.xz_size; i <= x + ConfigHandler.xz_size; i++) {
+                            for (int j = y; j <= y + ConfigHandler.y_size; j++) {
                                 testedBlock = world.getBlock(i, j, k);
                                 int meta = world.getBlockMetadata(i, j, k);
-                                if (testedBlock == data.getBlock() && meta == data.getMeta()) {
-                                    temp_x = i;
-                                    temp_y = j;
-                                    temp_z = k;
-                                    val = 1;
-                                    break;
-                                }
+                                for(BlockDataHolder _data:ConfigHandler.oreArray){
+                                if (_data.contains(testedBlock,meta)) {
+                                    if (_data.getOredict().equals(data.getOredict())){
+                                        temp_x = i;
+                                        temp_y = j;
+                                        temp_z = k;
+                                        val = 1;
+                                        break;
+                                    }
+                                }}
                             }if (val == 1) break;
                         }if (val == 1) break;
                     }
@@ -73,7 +76,7 @@ public class PerfectProspector extends ItemBase{
                 if (val == 1) {
                     player.addChatComponentMessage(
                             new ChatComponentText(
-                                    getProperLocalization(data.getStack()) + "found around :"
+                                    getProperLocalization(data.getOredict()) + " found around :"
                             )
                     );
 

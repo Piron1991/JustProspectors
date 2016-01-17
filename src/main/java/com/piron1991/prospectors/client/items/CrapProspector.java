@@ -36,9 +36,9 @@ public class CrapProspector extends ItemBase {
             int temp_z = z;
             BlockDataHolder data = null;
 
-            for (int k = z - 3; k <= z + 3; k++) {
-                for (int i = x - 3; i <= x + 3; i++) {
-                    for (int j = y; j <= y + 5; j++) {
+            for (int k = z - ConfigHandler.xz_size; k <= z + ConfigHandler.xz_size; k++) {
+                for (int i = x - ConfigHandler.xz_size; i <= x + ConfigHandler.xz_size; i++) {
+                    for (int j = y; j <= y + ConfigHandler.y_size; j++) {
                         testedBlock = world.getBlock(i, j, k);
                         int meta = world.getBlockMetadata(i,j,k);
                         for (BlockDataHolder _data:ConfigHandler.oreArray){
@@ -61,7 +61,7 @@ public class CrapProspector extends ItemBase {
                 player.addChatComponentMessage(
                         new ChatComponentText(
                                 "Worst found ore belongs to: "
-                                        +getProperLocalization(data.getStack())
+                                        +getProperLocalization(data.getOredict())
                         )
                 );
 

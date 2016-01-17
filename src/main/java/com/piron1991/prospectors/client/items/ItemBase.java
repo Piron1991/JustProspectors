@@ -61,4 +61,20 @@ public class ItemBase extends Item {
 
         return itemStack.getDisplayName();
     }
+
+
+    protected String getProperLocalization(String oreName){
+        //(?=\p{javaUpperCase}) - RegEx that splits on Case including that cased letter
+        String[] oreNameSplit = oreName.split("(?=\\p{javaUpperCase})");
+        String properName = "";
+
+        if (oreNameSplit.length>2){
+            for (int i = oreNameSplit.length-1;i>=1;i--){
+                properName = properName+oreNameSplit[i]+" ";
+            }
+            return properName+oreNameSplit[0];
+        }else{
+            return oreNameSplit[1]+" "+oreNameSplit[0];
+        }
+    }
 }
