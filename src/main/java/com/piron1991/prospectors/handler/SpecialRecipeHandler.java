@@ -56,7 +56,7 @@ public class SpecialRecipeHandler implements IRecipe {
                 }
                 for (BlockDataHolder data:ConfigHandler.oreArray)
                 {
-                    if (data.getStack().equals(itemstack)) {
+                    if (Block.getBlockFromItem(itemstack.getItem())==(data.getBlock())) {
                         ore = itemstack;
                         info=data;
                     }

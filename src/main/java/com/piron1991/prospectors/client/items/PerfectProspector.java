@@ -73,14 +73,13 @@ public class PerfectProspector extends ItemBase{
                 if (val == 1) {
                     player.addChatComponentMessage(
                             new ChatComponentText(
-                                    "Found ore at: "
-                                            + getProperLocalization(data.getStack())
+                                    getProperLocalization(data.getStack()) + "found around :"
                             )
                     );
 
                     player.addChatComponentMessage(
                             new ChatComponentText(
-                                    "Around x: "
+                                    "x: "
                                             + (temp_x + rand.nextInt(11) - 5)
                                             + " y: "
                                             + (temp_y + rand.nextInt(7) - 3)

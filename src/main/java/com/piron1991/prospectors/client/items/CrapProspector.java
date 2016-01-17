@@ -75,10 +75,11 @@ public class CrapProspector extends ItemBase {
                                         +(temp_z+rand.nextInt(11)-5)
                         )
                 );
+                itemstack.damageItem(1,player);
             }else{
                 player.addChatComponentMessage(new ChatComponentText("No ores found"));
             }
-            itemstack.damageItem(1,player);
+
         }
         return true;
     }
