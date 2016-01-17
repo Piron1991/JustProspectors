@@ -1,6 +1,7 @@
 package com.piron1991.prospectors.handler;
 
 import com.piron1991.prospectors.reference.Reference;
+import com.piron1991.prospectors.utilities.BlockDataHolder;
 import com.piron1991.prospectors.utilities.LogHelper;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -10,14 +11,14 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.*;
 
 public class ConfigHandler {
 
     public static Configuration config;
 
-    private static String[] oreList;
-    public static ArrayList<Block> blocks = new ArrayList<Block>(30);
+    public static String[] oreList;
+    public static HashSet<BlockDataHolder> oreArray = new HashSet<BlockDataHolder>(30);
 
     public static void preinit(File configFile) {
 
@@ -25,6 +26,7 @@ public class ConfigHandler {
             config = new Configuration(configFile);}
         loadConfig();
         setScannableOres();
+
     }
 
 
@@ -46,16 +48,26 @@ public class ConfigHandler {
     }
 
     private static void setScannableOres(){
-        LogHelper.info("Adding blocks: ");
+        //LogHelper.info("Adding blocks: ");
         ArrayList<ItemStack> stacks;
+        Integer value = 1;
+
         for (String ore:oreList) {
+
             stacks = OreDictionary.getOres(ore);
+            LogHelper.info(stacks);
+
             for (ItemStack stack :stacks) {
-                Block temp = Block.getBlockFromItem(stack.getItem());
-                if (!blocks.contains(temp) ){
-                    blocks.add(temp);
+
+                Block block = Block.getBlockFromItem(stack.getItem());
+                int meta = stack.getItemDamage();
+                BlockDataHolder data = new BlockDataHolder(ore,block,meta,value);
+
+                if (!oreArray.contains(data)){
+                    oreArray.add(data);
                 }
             }
+            value++;
         }
     }
 

@@ -1,8 +1,8 @@
 package com.piron1991.prospectors.client.items;
 
 import com.piron1991.prospectors.handler.ConfigHandler;
+import com.piron1991.prospectors.utilities.BlockDataHolder;
 import com.piron1991.prospectors.utilities.LogHelper;
-import com.piron1991.prospectors.utilities.NBTHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -10,8 +10,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -32,44 +32,49 @@ public class PerfectProspector extends ItemBase{
     public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int face, float hit_x, float hit_y, float hit_z) {
         if (!world.isRemote) {
 
-            ArrayList<Block> temp= ConfigHandler.blocks;
             Block testedBlock;
-            Integer val = -1;
+            Integer val = 0;
             int temp_x = x;
             int temp_y = y;
             int temp_z = z;
-            LogHelper.info(itemstack.getTagCompound().toString()+"      FIRST");
-          //  LogHelper.info(NBTHelper.getTagCompound(itemstack,"stackOreBlock").toString() + "          SECOND");
-            LogHelper.info(itemstack.getTagCompound().toString() + "        THIRD");
+            BlockDataHolder data = null;
+
             if (itemstack.hasTagCompound()) {
                 NBTTagCompound tag = itemstack.getTagCompound();
 
-                LogHelper.info(tag.toString() + "        FOURTH");
-                LogHelper.info(tag.getCompoundTag("stackOreBlock") + "       Fifth");
+                Block _block = Block.getBlockById(tag.getInteger("block"));
+                int _meta = tag.getByte("meta");
 
-                //TODO: helper gives stackOreBlock:{id:,Count:,Damage:,} and not just {id:,Count:,Damage:,} which is expected by loadItemStackFromNBT()
-                ItemStack _temp = ItemStack.loadItemStackFromNBT(tag);
-                Block savedBlock=Block.getBlockFromItem(_temp.getItem());
-
-
-                for (int k = z - 3; k <= z + 3; k++) {
-                    for (int i = x - 3; i <= x + 3; i++) {
-                        for (int j = y; j <= y + 5; j++) {
-                            testedBlock = world.getBlock(i, j, k);
-                            if (testedBlock.equals(savedBlock)) {
-                                val = 1;
-                                temp_x = i;
-                                temp_y = j;
-                                temp_z = k;
-                            }if (val==1)break;
-                        }if (val==1)break;
-                    }if (val==1)break;
+                for (BlockDataHolder _data:ConfigHandler.oreArray)
+                {
+                    if (_data.contains(_block,_meta))
+                    {
+                        data=_data;
+                        break;
+                    }
+                }
+                if (data != null) {
+                    for (int k = z - 3; k <= z + 3; k++) {
+                        for (int i = x - 3; i <= x + 3; i++) {
+                            for (int j = y; j <= y + 5; j++) {
+                                testedBlock = world.getBlock(i, j, k);
+                                int meta = world.getBlockMetadata(i, j, k);
+                                if (testedBlock == data.getBlock() && meta == data.getMeta()) {
+                                    temp_x = i;
+                                    temp_y = j;
+                                    temp_z = k;
+                                    val = 1;
+                                    break;
+                                }
+                            }if (val == 1) break;
+                        }if (val == 1) break;
+                    }
                 }
                 if (val == 1) {
                     player.addChatComponentMessage(
                             new ChatComponentText(
                                     "Found ore at: "
-                                            + getProperLocalization(new ItemStack(temp.get(val)))
+                                            + getProperLocalization(data.getStack())
                             )
                     );
 

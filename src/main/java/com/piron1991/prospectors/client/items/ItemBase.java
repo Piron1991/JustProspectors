@@ -41,11 +41,11 @@ public class ItemBase extends Item {
 
     protected String getProperLocalization(ItemStack itemStack){
 
-        if (itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey("oreDictName")){
+        if (itemStack.hasTagCompound()){
             NBTTagCompound tag = itemStack.getTagCompound();
 
             //(?=\p{javaUpperCase}) - RegEx that splits on Case including that cased letter
-            String[] oreName = tag.getString("oreDictName").split("(?=\\p{javaUpperCase})");
+            String[] oreName = tag.getString("name").split("(?=\\p{javaUpperCase})");
             String properName = "";
 
             if (oreName.length>2){
